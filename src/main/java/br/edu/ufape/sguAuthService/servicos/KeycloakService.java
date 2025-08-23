@@ -276,7 +276,8 @@ public class KeycloakService implements KeycloakServiceInterface {
     public void resetPassword(String email) throws KeycloakAuthenticationException {
         try {
             // Busca o usuário pelo email
-            List<UserRepresentation> users = keycloak.realm(realm).users().search(null, null, null, email, null, null);
+            List<UserRepresentation> users = keycloak.realm(realm).users()
+                    .searchByEmail(email, true);
 
             if (users == null || users.isEmpty()) {
                 throw new KeycloakAuthenticationException("Usuário com email " + email + " não encontrado.");
